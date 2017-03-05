@@ -32,7 +32,7 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var api2 = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://sam:mass@localhost:27017/dev',
+  databaseURI: databaseUri || 'mongodb://sam:mass@localhost:27017/esamyak',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myApp',
   masterKey: process.env.MASTER_KEY || 'myMasterApp', //Add your master key here. Keep it secret!
