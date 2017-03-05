@@ -12,7 +12,7 @@ if (!databaseUri) {
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  databaseURI: databaseUri || 'mongodb://sam:mass@localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppPolizi',
   masterKey: process.env.MASTER_KEY || 'myMasterPolizi', //Add your master key here. Keep it secret!
@@ -32,7 +32,7 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var api2 = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  databaseURI: databaseUri || 'mongodb://sam:mass@localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myApp',
   masterKey: process.env.MASTER_KEY || 'myMasterApp', //Add your master key here. Keep it secret!
@@ -42,7 +42,7 @@ var api2 = new ParseServer({
       apiKey: 'AAAAuv06PsU:APA91bGJdNfud1orm39sGKSlIwG02-4lub0d2O9TScQCseGQ4-wj6gesSALywIlWPp6JKFbeyF0LjE25JEv14LQCl3RNZX_881PDvtkX3fAFgnHhB0vBLS8xmjm0plhUdQ0bquZvZmCf0w_Yx5lgcoiwYR-mXlbutA'
     }
   },
-  serverURL: process.env.SERVER_URL || 'http://sam:mass@localhost:1337/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
