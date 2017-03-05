@@ -42,7 +42,7 @@ var api2 = new ParseServer({
       apiKey: 'AAAAuv06PsU:APA91bGJdNfud1orm39sGKSlIwG02-4lub0d2O9TScQCseGQ4-wj6gesSALywIlWPp6JKFbeyF0LjE25JEv14LQCl3RNZX_881PDvtkX3fAFgnHhB0vBLS8xmjm0plhUdQ0bquZvZmCf0w_Yx5lgcoiwYR-mXlbutA'
     }
   },
-  serverURL: process.env.SERVER_URL || 'http://localhost:1338/parse',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://localhost:1338/parse-server',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
@@ -68,9 +68,9 @@ app2.get('/test', function(req, res) {
   res.sendFile(path.join(__dirname, '/public/test.html'));
 });
 
-var port = process.env.PORT || 1338;
-var httpServer = require('http').createServer(app2);
-httpServer.listen(port, function() {
+var port2 = 1338;
+var httpServer2 = require('http').createServer(app2);
+httpServer2.listen(port, function() {
     console.log('parse-server2-example running on port ' + port + '.');
 });
 
