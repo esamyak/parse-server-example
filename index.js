@@ -42,40 +42,12 @@ var api2 = new ParseServer({
       apiKey: 'AAAAuv06PsU:APA91bGJdNfud1orm39sGKSlIwG02-4lub0d2O9TScQCseGQ4-wj6gesSALywIlWPp6JKFbeyF0LjE25JEv14LQCl3RNZX_881PDvtkX3fAFgnHhB0vBLS8xmjm0plhUdQ0bquZvZmCf0w_Yx5lgcoiwYR-mXlbutA'
     }
   },
-  serverURL: process.env.SERVER_URL || 'http://localhost:1338/parse-server',  // Don't forget to change to https if needed
+  serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
   }
 });
 
-var app2 = express();
-
-// Serve static assets from the /public folder
-app2.use('/public', express.static(path.join(__dirname, '/public')));
-
-// Serve the Parse API on the /parse URL prefix
-var mountPath2 = process.env.PARSE_MOUNT || '/parse-server';
-app2.use(mountPath2, api2);
-
-// Parse Server plays nicely with the rest of your web routes
-app2.get('/', function(req, res) {
-  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
-});
-
-// There will be a test page available on the /test path of your server url
-// Remove this before launching your app
-app2.get('/test', function(req, res) {
-  res.sendFile(path.join(__dirname, '/public/test.html'));
-});
-
-var port2 = 1338;
-var httpServer2 = require('http').createServer(app2);
-httpServer2.listen(port, function() {
-    console.log('parse-server2-example running on port ' + port + '.');
-});
-
-
-//-----------------------//
 var app = express();
 
 // Serve static assets from the /public folder
@@ -84,6 +56,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
+app.use('/parse-server',api2);
 
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
