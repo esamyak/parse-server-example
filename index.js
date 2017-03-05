@@ -12,7 +12,7 @@ if (!databaseUri) {
 }
 
 var api = new ParseServer({
-  databaseURI: databaseUri || 'mongodb://sam:mass@localhost:27017/dev',
+  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
   appId: process.env.APP_ID || 'myAppPolizi',
   masterKey: process.env.MASTER_KEY || 'myMasterPolizi', //Add your master key here. Keep it secret!
@@ -48,6 +48,34 @@ var api2 = new ParseServer({
   }
 });
 
+var app2 = express();
+
+// Serve static assets from the /public folder
+app2.use('/public', express.static(path.join(__dirname, '/public')));
+
+// Serve the Parse API on the /parse URL prefix
+var mountPath2 = process.env.PARSE_MOUNT || '/parse-server';
+app2.use(mountPath2, api2);
+
+// Parse Server plays nicely with the rest of your web routes
+app2.get('/', function(req, res) {
+  res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
+});
+
+// There will be a test page available on the /test path of your server url
+// Remove this before launching your app
+app2.get('/test', function(req, res) {
+  res.sendFile(path.join(__dirname, '/public/test.html'));
+});
+
+var port = process.env.PORT || 1338;
+var httpServer = require('http').createServer(app2);
+httpServer.listen(port, function() {
+    console.log('parse-server2-example running on port ' + port + '.');
+});
+
+
+//-----------------------//
 var app = express();
 
 // Serve static assets from the /public folder
@@ -57,7 +85,6 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
-app.use('/parse-server',api2);
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
