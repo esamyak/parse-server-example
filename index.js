@@ -14,8 +14,14 @@ if (!databaseUri) {
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
   cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
-  appId: process.env.APP_ID || 'myAppId',
-  masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
+  appId: process.env.APP_ID || 'myAppPolizi',
+  masterKey: process.env.MASTER_KEY || 'myMasterPolizi', //Add your master key here. Keep it secret!
+  push:{
+		android: {
+			senderId: 803112369861,
+			apiKey: 'AAAAuv06PsU:APA91bGJdNfud1orm39sGKSlIwG02-4lub0d2O9TScQCseGQ4-wj6gesSALywIlWPp6JKFbeyF0LjE25JEv14LQCl3RNZX_881PDvtkX3fAFgnHhB0vBLS8xmjm0plhUdQ0bquZvZmCf0w_Yx5lgcoiwYR-mXlbutA'
+		}
+	},
   serverURL: process.env.SERVER_URL || 'http://localhost:1337/parse',  // Don't forget to change to https if needed
   liveQuery: {
     classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
@@ -24,6 +30,23 @@ var api = new ParseServer({
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
 // If you wish you require them, you can set them as options in the initialization above:
 // javascriptKey, restAPIKey, dotNetKey, clientKey
+
+var api2 = new ParseServer({
+  databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
+  cloud: process.env.CLOUD_CODE_MAIN || __dirname + '/cloud/main.js',
+  appId: process.env.APP_ID || 'myApp',
+  masterKey: process.env.MASTER_KEY || 'myMasterApp', //Add your master key here. Keep it secret!
+  push: {
+    android: {
+      senderId: 803112369861,
+      apiKey: 'AAAAuv06PsU:APA91bGJdNfud1orm39sGKSlIwG02-4lub0d2O9TScQCseGQ4-wj6gesSALywIlWPp6JKFbeyF0LjE25JEv14LQCl3RNZX_881PDvtkX3fAFgnHhB0vBLS8xmjm0plhUdQ0bquZvZmCf0w_Yx5lgcoiwYR-mXlbutA'
+    }
+  },
+  serverURL: process.env.SERVER_URL || 'http://sam:mass@localhost:1337/parse',  // Don't forget to change to https if needed
+  liveQuery: {
+    classNames: ["Posts", "Comments"] // List of classes to support for query subscriptions
+  }
+});
 
 var app = express();
 
@@ -34,6 +57,7 @@ app.use('/public', express.static(path.join(__dirname, '/public')));
 var mountPath = process.env.PARSE_MOUNT || '/parse';
 app.use(mountPath, api);
 
+app.use('/parse-server',api2);
 // Parse Server plays nicely with the rest of your web routes
 app.get('/', function(req, res) {
   res.status(200).send('I dream of being a website.  Please star the parse-server repo on GitHub!');
