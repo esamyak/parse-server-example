@@ -10,7 +10,7 @@ Parse.Cloud.define('SendPush', function(request,response) {
   var profileName = request.params.userName;
   var query = new Parse.Query(Parse.Installation);
   query.exists("deviceToken");
-  //query.withinKilometers('Location', location, 10);
+  query.withinKilometers('Location', location, 10);
   console.log("user id "+userId);
   query.limit(userCount);
   query.equalTo("isLoggedIn",true);
